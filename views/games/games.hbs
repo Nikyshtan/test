@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header}}
+<body>
+    {{> navbar}}
+    <div id="liveAlertPlaceholder"></div>
+    <h1>Hola Muchachos</h1>
+    <p>Esta es la pagina de los {{title}}</p>
+    
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarJuego">
+        Agregar Juego
+    </button>
+    <div id="games_table">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Juegos</th>
+                <th scope="col">Saga</th>
+                <th scope="col">Genero</th>
+                <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each games}}
+                <tr>
+                <th scope="row">{{idgames}}</th>
+                <td>{{name}}</td>
+                <td>{{saga.name}}</td>
+                <td>{{genre.name}}</td>
+                <td><a href="/games/{{idgames}}">Ver</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+   <div class="modal fade" id="agregarJuego" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Juego</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form action="/games" method="post">
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="saga">Saga *</label>
+                    <select name="saga" class="form-control" required>
+                        <option disabled selected value> Seleccionar </option>
+                        {{#each sagas}}
+                        <option value="{{idsaga}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="genre">Genero *</label>
+                    <select name="genre" class="form-control" required>
+                        <option disabled selected value> Seleccionar </option>
+                        {{#each genres}}
+                        <option value="{{idgenre}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="title">Titulo *</label>
+                    <input type="text" name ="title" class="form-control" id="title" placeholder="Super Mario Bross" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="duration">Duración (horas) *</label>
+                    <input type="number" name="duration" class="form-control" id="duration" placeholder="60" min="0" required>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form> 
+    </div>
+  </div>
+  <!-- ALERT -->
+  <div class="alert alert-primary alert-dismissible" role="alert" id="liveAlert">
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div>
+            
+</body>
+<script>
+
+    function alert(message, type) {
+        var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+        var wrapper = document.createElement('div')
+        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+        alertPlaceholder.append(wrapper);
+    }
+    
+    function load() {
+        if({{flagNewGame}} ==true){
+            alert('¡Se ha añadido el juego!', 'success');
+        }
+    }
+    window.onload = load;
+</script>
+</html>

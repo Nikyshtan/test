@@ -9,18 +9,15 @@ async function getAll(req, res){
     let users = await User.findAll({attributes:[
         'id', 'name'
     ]});
-
-    console.log("All users:", JSON.stringify(users, null, 2));
-   
-    res.render('users',
-
+    let data = 
     {
-        users: JSON.stringify(users, null, 2),
+        users: users,
         name: "pagina de usuarios",
-    }
-    )
-}
+    };
 
+    res.render('users', data)
+    
+}
 
 module.exports = {
     getAll

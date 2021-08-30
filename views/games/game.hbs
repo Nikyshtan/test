@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header}}
+<body>
+    {{> navbar}}
+    <div id="liveAlertPlaceholder"></div>
+    <h1>Hola Muchchos</h1>
+    <p>Esta es la pagina de los {{title}}</p>
+    
+    <div id="games_table">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
+                    <td>{{game.idgames}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Titulo</th>
+                    <td>{{game.name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Saga</th>
+                <td>{{game.saga.name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Genero</th>
+                    <td>{{game.genre.name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Duracion (horas)</th>
+                    <td>{{game.durationHour}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+            
+</body>
+
+</html>

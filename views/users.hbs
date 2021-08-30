@@ -3,9 +3,29 @@
 {{> header}}
 <body>
     {{> navbar}}
-    <h1>Hola chicos</h1>
+    <h1>{{name}}</h1>
     <p>Esta es la pagina de los {{name}}</p>
-    <p>{{users}}</p>
-</body>
 
+    <div id="users_table">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                <th scope="row">{{id}}</th>
+                <td>{{name}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    
+
+
+</body>
 </html>
