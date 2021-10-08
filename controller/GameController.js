@@ -5,16 +5,27 @@ const Game = require('../models/Game');
 const Genre = require('../models/Genre');
 const Saga = require('../models/Saga');
 
-async function getAll(req, res){
 
+async function getAll(req, res){
+    console.log(req.session.id);
+    console.log(req.session.userid);
     let data = await baseInformation();    
 
     res.render('games/games', data)
     
 }
 
+async function getAllJson(req, res){
+
+    let games = await Game.findAll({ include: ['genre', 'saga']});
+
+    res.json(games);
+    
+}
+
 async function create(req, res) {
     let body = req.body;
+
     Game.create({
         idgenre: body.genre,
         idsaga: body.saga,
@@ -26,11 +37,26 @@ async function create(req, res) {
     res.render('games/games', data)
 }
 
-async function getOne(req, res){
+async function createApi(req, res) {
+    let body = req.body;
+    console.log(req);
+    console.log(body);
 
-    let game = await Game.findByPk( req.params.gameId,{include:['saga','genre']} );
+    let game = await Game.create({
+        idgenre: body.genre,
+        idsaga: body.saga,
+        name: body.title,
+        durationHour: body.duration
+    })
+
+    res.json(game);
+}
+
+async function getOne(req, res){
+    let idGame = req.params.gameId;
+    let game = await Game.findByPk( idGame,{include:['saga','genre']} );
     let data ={
-        title: "Un juego",
+        title: game.name,
         game: game
     }
 
@@ -57,5 +83,7 @@ async function baseInformation() {
 module.exports = {
     getAll,
     create,
-    getOne
+    getOne,
+    getAllJson,
+    createApi
 }

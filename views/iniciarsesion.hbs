@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header}}
+<body>
+    {{> navbar}}
+    <h1>Hola chicos</h1>
+    <p>Esta es la pagina de los {{title}}</p>
+    <form action="/iniciarsesion" method="post">
+        <label for="username">Usuario</label>
+        <input type="text" name ="username" class="form-control" id="username" placeholder="username" required>
+        <label for="password">Constraseña</label>
+        <input type="password" name ="password" class="form-control" id="password" required>
+        <button type="submit">Iniciar sesion</button>
+    </form>
+</body>
+
+</html>
