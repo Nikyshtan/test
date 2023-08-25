@@ -28,3 +28,5 @@ Game.saga = Game.belongsTo(saga, {as: 'saga', foreignKey:'idsaga'});
 
 
 module.exports= Game;
+
+//Hola
